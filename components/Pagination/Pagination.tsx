@@ -14,17 +14,19 @@ export default function Pagination({
   onPageChange,
 }: PaginationProps) {
   return (
-    <ReactPaginate
-      breakLabel="..."
-      nextLabel=">"
-      previousLabel="<"
-      onPageChange={onPageChange}
-      pageRangeDisplayed={3}
-      marginPagesDisplayed={1}
-      pageCount={pageCount}
-      forcePage={currentPage}
-      containerClassName={css.pagination}
-      activeClassName={css.active}
-    />
+    <div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        previousLabel="<"
+        onPageChange={onPageChange}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={1}
+        pageCount={pageCount}
+        forcePage={currentPage}
+        containerClassName={css.pagination}
+        activeClassName={css.active}
+      />
+    </div>
   );
 }
