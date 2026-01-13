@@ -11,23 +11,32 @@ interface NotePageProps {
   params: Promise<{ slug: string[] }>;
 }
 
-export const metadata: Metadata = {
-  title: 'Notes | NoteHub',
-  description: 'Create a new note and organize your tasks effectively.',
-  openGraph: {
-    title: 'Notes | NoteHub',
-    description: 'Create a new note and organize your tasks effectively.',
-    url: '/notes/filter/all',
-    images: [
-      {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'NoteHub Preview',
-      },
-    ],
-  },
-};
+export async function generateMetadata({
+  params,
+}: NotePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const filterName = slug?.length && slug[0] !== 'all' ? slug[0] : 'All';
+
+  const fullUrl = `/notes/filter/${slug?.join('/') || 'all'}`;
+
+  return {
+    title: `${filterName} Notes | NoteHub`,
+    description: `Browse through your ${filterName.toLowerCase()} notes and stay organized.`,
+    openGraph: {
+      title: `${filterName} Notes | NoteHub`,
+      description: `Browse through your ${filterName.toLowerCase()} notes and stay organized.`,
+      url: fullUrl,
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: `NoteHub ${filterName} Preview`,
+        },
+      ],
+    },
+  };
+}
 
 export default async function NotesPage({ params }: NotePageProps) {
   const { slug } = await params;

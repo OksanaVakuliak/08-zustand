@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import type { CreateNote } from '@/types/note';
 
 interface NoteState {
@@ -26,7 +26,7 @@ export const useNoteStore = create<NoteState>()(
     }),
     {
       name: 'note-storage',
-      storage: createJSONStorage(() => localStorage),
+      partialize: state => ({ draft: state.draft }),
     }
   )
 );
